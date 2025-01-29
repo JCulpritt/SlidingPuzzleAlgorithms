@@ -14,12 +14,31 @@ public class SlidingPuzzle implements Problem<String,String> {
 
 
 
-    public int calculateHeuristic(String state) {
+    public int calculateMismatchHeuristic(String state) {
         int heuristic = 0;
         for (int i = 0; i < state.length(); i++) {
             if (state.charAt(i) != '0' && state.charAt(i) != goalState().charAt(i)) {
                 heuristic++;
             }
+        }
+        return heuristic;
+    }
+
+    public int calculateDistanceHeuristic(String state) {
+        int heuristic = 0;
+        for(int i = 0; i < state.length(); i++) {
+            int valueOfTile = Integer.parseInt(Character.toString(state.charAt(i)));
+
+
+            int row1 = i / 3, col1 = i % 3;
+
+            int row2 = valueOfTile / 3, col2 = valueOfTile % 3;
+
+            int distance = Math.abs(row1 - row2) + Math.abs(col1 - col2);
+
+            System.out.print("Index: " + i + "\nValue: " + valueOfTile + "distance: " + distance + "\n\n");
+
+            heuristic += distance;
         }
         return heuristic;
     }
@@ -65,6 +84,7 @@ public class SlidingPuzzle implements Problem<String,String> {
 
     public static void main(String[] args){
         SlidingPuzzle S = new SlidingPuzzle();
+        System.out.println(S.calculateDistanceHeuristic(S.initialState()));
         StringBuilder builder = new StringBuilder();
         for(Map.Entry<String,List<Tuple<String,String>>> entry : S.transitionModel.entrySet()){
             builder.append(!builder.isEmpty() ? "\n" : "")
@@ -73,15 +93,16 @@ public class SlidingPuzzle implements Problem<String,String> {
                     .append(entry.getValue());
         }
         System.out.println(builder);
+
     }
 
 
     public String initialState() {
-        return "456780213";
+        return "724506831";
     }
 
     public String goalState() {
-        return "123456780";
+        return "012345678";
     }
     private String swap(String state, int i, int j) {
         char[] arr = state.toCharArray();
