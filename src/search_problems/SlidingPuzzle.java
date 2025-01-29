@@ -2,8 +2,6 @@ package search_problems;
 
 import core_search.Problem;
 import core_search.Tuple;
-
-import java.io.File;
 import java.util.*;
 
 public class SlidingPuzzle implements Problem<String,String> {
