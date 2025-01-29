@@ -92,6 +92,7 @@ public class SlidingPuzzle implements Problem<String,String> {
     }
 
     public List<Tuple<String, String>> execution(String State) {
+        buildTransitionModel(State);
         return transitionModel.getOrDefault(State, null);
     }
 
