@@ -28,34 +28,39 @@ public class SlidingPuzzle implements Problem<String,String> {
         transitionModel.clear();
         int cost = 1;
 
-        int[][] moves = {
-                {-1, 0}, // Move up
-                {1, 0},  // Move down
-                {0, -1}, // Move left
-                {0, 1}  // MOve right
-        };
+        for (int i = 0; i < state.length(); i++) {
+            if (state.charAt(i) == '0') {
+                List<Tuple<String, String>> transitions = new ArrayList<>();
+                Set<String> seenStates = new HashSet<>();  // Track unique child states
 
-        String[] moveNames = {"toUP", "toDOWN", "toLEFT", "toRIGHT"};
+                int[][] moves = {
+                        {-1, 0}, // Up
+                        {1, 0},  // Down
+                        {0, -1}, // Left
+                        {0, 1}   // Right
+                };
+                String[] moveNames = {"toUP", "toDOWN", "toLEFT", "toRIGHT"};
 
-        int zeroIndex = state.indexOf('0');
-        int row = zeroIndex / 3;
-        int col = zeroIndex % 3;
+                int row = i / 3, col = i % 3;
+                for (int j = 0; j < moves.length; j++) {
+                    int newRow = row + moves[j][0];
+                    int newCol = col + moves[j][1];
 
-        List<Tuple<String, String>> transitions = new ArrayList<>();
+                    if (newRow >= 0 && newRow < 3 && newCol >= 0 && newCol < 3) {
+                        int newIndex = newRow * 3 + newCol;
+                        String newState = swap(state, i, newIndex);
 
-        for (int i = 0; i < moves.length; i++) {
-            int newRow = row + moves[i][0];
-            int newCol = col + moves[i][1];
-
-            if (newRow >= 0 && newRow < 3 && newCol >= 0 && newCol < 3) {
-                int newIndex = newRow * 3 + newCol;
-                String newState = swap(state, zeroIndex, newIndex);
-                transitions.add(new Tuple<>(newState, moveNames[i], cost));
+                        if (!seenStates.contains(newState)) {  // Prevent duplicate states
+                            seenStates.add(newState);
+                            transitions.add(new Tuple<>(newState, moveNames[j], cost));
+                        }
+                    }
+                }
+                transitionModel.put(state, transitions);
             }
         }
-
-        transitionModel.put(state, transitions);
     }
+
 
 
     public static void main(String[] args){

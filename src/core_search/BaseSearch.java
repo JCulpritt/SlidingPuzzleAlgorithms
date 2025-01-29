@@ -38,7 +38,6 @@ public class BaseSearch<S,A> {
                 return;
             }
             for(Tuple<S,A> t : p.execution(node.getState())) {
-                System.out.print("For loop");
                 Node<S,A> child = new Node<>(
                         t.getState(),
                         t.getAction(),
