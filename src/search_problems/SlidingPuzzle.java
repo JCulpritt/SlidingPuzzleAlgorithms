@@ -39,8 +39,9 @@ public class SlidingPuzzle implements Problem<String,String> {
 
         String[] moveNames = {"toUP", "toDOWN", "toLEFT", "toRIGHT"};
 
-        int row = state.indexOf('0') / 3;
-        int col = state.indexOf('0') % 3;
+        int zeroIndex = state.indexOf('0');
+        int row = zeroIndex / 3;
+        int col = zeroIndex % 3;
 
         List<Tuple<String, String>> transitions = new ArrayList<>();
 
@@ -48,9 +49,11 @@ public class SlidingPuzzle implements Problem<String,String> {
             int newRow = row + moves[i][0];
             int newCol = col + moves[i][1];
 
-            int newIndex = newRow * 3 + newCol;
-            String newState = swap(state, state.indexOf('0'), newIndex);
-            transitions.add(new Tuple<>(newState, moveNames[i], cost));
+            if (newRow >= 0 && newRow < 3 && newCol >= 0 && newCol < 3) {
+                int newIndex = newRow * 3 + newCol;
+                String newState = swap(state, zeroIndex, newIndex);
+                transitions.add(new Tuple<>(newState, moveNames[i], cost));
+            }
         }
 
         transitionModel.put(state, transitions);
