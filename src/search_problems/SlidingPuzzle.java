@@ -97,9 +97,19 @@ public class SlidingPuzzle implements Problem<String,String> {
     }
 
     public void printState(String state) {
-        for(int i = 0; i < 9; i = i+3) {
-            System.out.println(state.substring(i, i+3));
+        for(int i = 0; i < 9; i++) {
+            if(state.charAt(i) == '0') {
+                System.out.print("  ");
+            }
+            else {
+                System.out.print(STR."\{state.charAt(i)} ");
+            }
+            if((i + 1) % 3 == 0) {
+                System.out.print("\n");
+            }
+
         }
+
     }
 
 
