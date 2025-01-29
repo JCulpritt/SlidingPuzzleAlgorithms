@@ -5,9 +5,10 @@ import core_search.Node;
 import core_search.SortedQueue;
 import search_problems.SlidingPuzzle;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
-public class SlidingPuzzle_AStar_Mismatch extends BaseSearch<String, String> {
+public class SlidingPuzzle_AStar_Mismatch extends BaseSearch<ArrayList<Integer>, String> {
     public SlidingPuzzle_AStar_Mismatch() {
         super(new SlidingPuzzle(), new SortedQueue<>(new SlidingPuzzle_AStar_Mismatch.CalculateHeuristic(new SlidingPuzzle())));
     }
@@ -17,12 +18,12 @@ public class SlidingPuzzle_AStar_Mismatch extends BaseSearch<String, String> {
         t.search();
     }
 
-    public static class CalculateHeuristic implements Comparator<Node<String, String>> {
+    public static class CalculateHeuristic implements Comparator<Node<ArrayList<Integer>, String>> {
         public final SlidingPuzzle problem;
         public CalculateHeuristic(SlidingPuzzle problem) {
             this.problem = problem;
         }
-        public int compare(Node<String, String> o1, Node<String, String> o2) {
+        public int compare(Node<ArrayList<Integer>, String> o1, Node<ArrayList<Integer>, String> o2) {
             return Integer.compare(problem.calculateMismatchHeuristic(o1.getState()), problem.calculateMismatchHeuristic(o2.getState()));
         }
     }
