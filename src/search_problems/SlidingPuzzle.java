@@ -28,17 +28,13 @@ public class SlidingPuzzle implements Problem<String,String> {
         int heuristic = 0;
         for(int i = 0; i < state.length(); i++) {
             int valueOfTile = Integer.parseInt(Character.toString(state.charAt(i)));
+            if(valueOfTile != 0){
+                int row1 = i / 3, col1 = i % 3;
+                int row2 = valueOfTile / 3, col2 = valueOfTile % 3;
+                int distance = Math.abs(row1 - row2) + Math.abs(col1 - col2);
+                heuristic += distance;
+            }
 
-
-            int row1 = i / 3, col1 = i % 3;
-
-            int row2 = valueOfTile / 3, col2 = valueOfTile % 3;
-
-            int distance = Math.abs(row1 - row2) + Math.abs(col1 - col2);
-
-            System.out.print("Index: " + i + "\nValue: " + valueOfTile + "distance: " + distance + "\n\n");
-
-            heuristic += distance;
         }
         return heuristic;
     }
