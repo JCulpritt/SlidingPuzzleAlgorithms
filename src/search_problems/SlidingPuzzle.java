@@ -30,120 +30,32 @@ public class SlidingPuzzle implements Problem<String,String> {
         transitionModel.clear();
         int cost = 1;
 
-        for(int i = 0; i < state.length(); i++) {
-            if(state.charAt(i) == '0') {
-                if(i == 4) {
-                    //4 possible moves
-                    String temp1 = swap(state, i, i+3);
-                    String temp2 = swap(state, i, i+1);
-                    String temp3 = swap(state, i, i-1);
-                    String temp4 = swap(state, i, i-3);
+        int[][] moves = {
+                {-1, 0}, // Move up
+                {1, 0},  // Move down
+                {0, -1}, // Move left
+                {0, 1}  // MOve right
+        };
 
-                    List<Tuple<String, String>> l = new ArrayList<>();
-                    l.add(new Tuple<>(temp1, "toDOWN", cost));
-                    l.add(new Tuple<>(temp2, "toRIGHT", cost));
-                    l.add(new Tuple<>(temp3, "toLEFT", cost));
-                    l.add(new Tuple<>(temp4, "toUP", cost));
+        String[] moveNames = {"toUP", "toDOWN", "toLEFT", "toRIGHT"};
 
-                    transitionModel.put(state, l);
+        int row = state.indexOf('0') / 3;
+        int col = state.indexOf('0') % 3;
 
-                }
-                else if(i % 2 == 0) {
-                    //2  possible moves
-                    if(i == 0){
-                        String temp1 = swap(state, i, i+1);
-                        String temp2 = swap(state, i, i-3);
+        List<Tuple<String, String>> transitions = new ArrayList<>();
 
-                        List<Tuple<String, String>> l = new ArrayList<>();
-                        l.add(new Tuple<>(temp1, "toRIGHT", cost));
-                        l.add(new Tuple<>(temp2, "toUP", cost));
+        for (int i = 0; i < moves.length; i++) {
+            int newRow = row + moves[i][0];
+            int newCol = col + moves[i][1];
 
-                        transitionModel.put(state, l);
-                    }
-                    else if(i == 2){
-                        String temp1 = swap(state, i, i-1);
-                        String temp2 = swap(state, i, i-3);
-
-                        List<Tuple<String, String>> l = new ArrayList<>();
-                        l.add(new Tuple<>(temp1, "toLEFT", cost));
-                        l.add(new Tuple<>(temp2, "toUP", cost));
-
-                        transitionModel.put(state, l);
-                    }
-                    else if(i == 6){
-                        String temp1 = swap(state, i, i+1);
-                        String temp2 = swap(state, i, i+3);
-
-                        List<Tuple<String, String>> l = new ArrayList<>();
-                        l.add(new Tuple<>(temp1, "toRIGHT", cost));
-                        l.add(new Tuple<>(temp2, "toDOWN", cost));
-
-                        transitionModel.put(state, l);
-                    }
-                    else if(i == 8){
-                        String temp1 = swap(state, i, i-1);
-                        String temp2 = swap(state, i, i+3);
-
-                        List<Tuple<String, String>> l = new ArrayList<>();
-                        l.add(new Tuple<>(temp1, "toLEFT", cost));
-                        l.add(new Tuple<>(temp2, "toDOWN", cost));
-
-                        transitionModel.put(state, l);
-                    }
-                }
-                else{
-                    if(i == 1){
-                        String temp1 = swap(state, i, i+1);
-                        String temp2 = swap(state, i, i-3);
-                        String temp3 = swap(state, i, i-1);
-
-                        List<Tuple<String, String>> l = new ArrayList<>();
-                        l.add(new Tuple<>(temp1, "toRIGHT", cost));
-                        l.add(new Tuple<>(temp2, "toUP", cost));
-                        l.add(new Tuple<>(temp3, "toLEFT", cost));
-
-                        transitionModel.put(state, l);
-                    }
-                    else if(i == 3){
-                        String temp1 = swap(state, i, i-1);
-                        String temp2 = swap(state, i, i-3);
-                        String temp3 = swap(state, i, i+1);
-
-                        List<Tuple<String, String>> l = new ArrayList<>();
-                        l.add(new Tuple<>(temp1, "toLEFT", cost));
-                        l.add(new Tuple<>(temp2, "toDOWN", cost));
-                        l.add(new Tuple<>(temp3, "toRIGHT", cost));
-
-                        transitionModel.put(state, l);
-                    }
-                    else if(i == 5){
-                        String temp1 = swap(state, i, i+1);
-                        String temp2 = swap(state, i, i+3);
-                        String temp3 = swap(state, i, i-1);
-
-                        List<Tuple<String, String>> l = new ArrayList<>();
-                        l.add(new Tuple<>(temp1, "toRIGHT", cost));
-                        l.add(new Tuple<>(temp2, "toDOWN", cost));
-                        l.add(new Tuple<>(temp3, "toLEFT", cost));
-
-                        transitionModel.put(state, l);
-                    }
-                    else if(i == 7){
-                        String temp1 = swap(state, i, i-1);
-                        String temp2 = swap(state, i, i+3);
-                        String temp3 = swap(state, i, i+1);
-
-                        List<Tuple<String, String>> l = new ArrayList<>();
-                        l.add(new Tuple<>(temp1, "toLEFT", cost));
-                        l.add(new Tuple<>(temp2, "toDOWN", cost));
-                        l.add(new Tuple<>(temp3, "toRIGHT", cost));
-
-                        transitionModel.put(state, l);
-                    }
-                }
-            }
+            int newIndex = newRow * 3 + newCol;
+            String newState = swap(state, state.indexOf('0'), newIndex);
+            transitions.add(new Tuple<>(newState, moveNames[i], cost));
         }
+
+        transitionModel.put(state, transitions);
     }
+
 
     public static void main(String[] args){
         SlidingPuzzle S = new SlidingPuzzle();
