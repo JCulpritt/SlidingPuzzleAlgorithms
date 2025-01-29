@@ -8,13 +8,13 @@ import search_problems.SlidingPuzzle;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class SlidingPuzzle_AStar_Distance extends BaseSearch<ArrayList<Integer>, String> {
-    public SlidingPuzzle_AStar_Distance() {
-        super(new SlidingPuzzle(), new SortedQueue<>(new SlidingPuzzle_AStar_Distance.CalculateHeuristic(new SlidingPuzzle())));
+public class SlidingPuzzle_GBFS_Mismatch extends BaseSearch<ArrayList<Integer>, String> {
+    public SlidingPuzzle_GBFS_Mismatch() {
+        super(new SlidingPuzzle(), new SortedQueue<>(new SlidingPuzzle_GBFS_Mismatch.CalculateHeuristic((new SlidingPuzzle()))));
     }
 
     public static void main(String[] args) {
-        SlidingPuzzle_AStar_Distance t = new SlidingPuzzle_AStar_Distance();
+        SlidingPuzzle_GBFS_Mismatch t = new SlidingPuzzle_GBFS_Mismatch();
         t.search();
     }
 
@@ -24,7 +24,7 @@ public class SlidingPuzzle_AStar_Distance extends BaseSearch<ArrayList<Integer>,
             this.problem = problem;
         }
         public int compare(Node<ArrayList<Integer>, String> o1, Node<ArrayList<Integer>, String> o2) {
-            return Integer.compare(problem.calculateDistanceHeuristic(o1.getState()) + o1.getPathCost(), problem.calculateDistanceHeuristic(o2.getState()) + o2.getPathCost());
+            return Integer.compare(problem.calculateMismatchHeuristic(o1.getState()), problem.calculateMismatchHeuristic(o2.getState()));
         }
     }
 }

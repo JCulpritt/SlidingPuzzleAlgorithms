@@ -24,7 +24,7 @@ public class SlidingPuzzle_AStar_Mismatch extends BaseSearch<ArrayList<Integer>,
             this.problem = problem;
         }
         public int compare(Node<ArrayList<Integer>, String> o1, Node<ArrayList<Integer>, String> o2) {
-            return Integer.compare(problem.calculateMismatchHeuristic(o1.getState()), problem.calculateMismatchHeuristic(o2.getState()));
+            return Integer.compare(problem.calculateMismatchHeuristic(o1.getState()) + o1.getPathCost(), problem.calculateMismatchHeuristic(o2.getState()) + o2.getPathCost());
         }
     }
 }

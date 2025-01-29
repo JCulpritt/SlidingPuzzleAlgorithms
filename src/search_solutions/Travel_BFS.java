@@ -15,7 +15,6 @@ public class Travel_BFS extends BaseSearch<String, String> {
         Travel_BFS t = new Travel_BFS("RomaniaMap.txt");
         t.search();
 
-
     }
 
 }
