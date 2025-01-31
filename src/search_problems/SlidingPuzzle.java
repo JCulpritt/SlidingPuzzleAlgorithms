@@ -110,10 +110,10 @@ public class SlidingPuzzle implements Problem<ArrayList<Integer>, String> {
 
 
     private ArrayList<Integer> swap(ArrayList<Integer> state, int i, int j) {
-        ArrayList<Integer> newState = new ArrayList<>(state);  // Create a copy
-        int temp = newState.get(i);
-        newState.set(i, newState.get(j));
-        newState.set(j, temp);
+        ArrayList<Integer> newState = new ArrayList<>(state);
+        newState.set(i, newState.get(i) ^ newState.get(j));
+        newState.set(j, newState.get(i) ^ newState.get(j));
+        newState.set(i, newState.get(i) ^ newState.get(j));
         return newState;
     }
 
