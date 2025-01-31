@@ -4,8 +4,6 @@ import core_search.BaseSearch;
 import core_search.Node;
 import core_search.SortedQueue;
 import search_problems.SlidingPuzzle;
-import search_problems.Travel;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -16,7 +14,11 @@ public class SlidingPuzzle_UCS extends BaseSearch<ArrayList<Integer>, String> {
 
     public static void main(String[] args) {
         SlidingPuzzle_UCS t = new SlidingPuzzle_UCS();
+        double startTime = System.nanoTime();
         t.search();
+        double endTime = System.nanoTime();
+
+        System.out.printf("-------------------------\nTime taken: %.3f secs\n-------------------------", (endTime-startTime)/1_000_000_000);
     }
 
     public static class ComparePathCost implements Comparator<Node<ArrayList<Integer>, String>> {

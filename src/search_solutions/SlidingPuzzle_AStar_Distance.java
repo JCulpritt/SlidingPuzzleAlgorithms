@@ -5,6 +5,7 @@ import core_search.Node;
 import core_search.SortedQueue;
 import search_problems.SlidingPuzzle;
 
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -15,9 +16,15 @@ public class SlidingPuzzle_AStar_Distance extends BaseSearch<ArrayList<Integer>,
 
     public static void main(String[] args) {
         SlidingPuzzle_AStar_Distance t = new SlidingPuzzle_AStar_Distance();
+
+        double startTime = System.nanoTime();
         t.search();
+        double endTime = System.nanoTime();
+
+        System.out.printf("-------------------------\nTime taken: %.3f secs\n-------------------------", (endTime-startTime)/1_000_000_000);
     }
 
+    @SuppressWarnings("ClassCanBeRecord")
     public static class CalculateHeuristic implements Comparator<Node<ArrayList<Integer>, String>> {
         public final SlidingPuzzle problem;
         public CalculateHeuristic(SlidingPuzzle problem) {

@@ -14,7 +14,11 @@ public class Travel_GBFS extends BaseSearch<String, String> {
 
     public static void main(String[] args) {
         Travel_GBFS t = new Travel_GBFS("RomaniaMap.txt", "RomaniaMapEstimates.txt");
+        double startTime = System.nanoTime();
         t.search();
+        double endTime = System.nanoTime();
+
+        System.out.printf("-------------------------\nTime taken: %.3f secs\n-------------------------", (endTime-startTime)/1_000_000_000);
     }
 
     public static class CompareEstimates implements Comparator<Node<String, String>> {

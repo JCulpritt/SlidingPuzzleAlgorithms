@@ -12,6 +12,10 @@ public class SlidingPuzzle_DFS extends BaseSearch<ArrayList<Integer>, String> {
 
     public static void main(String[] args) {
         SlidingPuzzle_DFS t = new SlidingPuzzle_DFS();
+        double startTime = System.nanoTime();
         t.search();
+        double endTime = System.nanoTime();
+
+        System.out.printf("-------------------------\nTime taken: %.3f secs\n-------------------------", (endTime-startTime)/1_000_000_000);
     }
 }

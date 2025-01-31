@@ -13,7 +13,11 @@ public class Travel_BFS extends BaseSearch<String, String> {
 
     public static void main(String[] args) {
         Travel_BFS t = new Travel_BFS("RomaniaMap.txt");
+        double startTime = System.nanoTime();
         t.search();
+        double endTime = System.nanoTime();
+
+        System.out.printf("-------------------------\nTime taken: %.3f secs\n-------------------------", (endTime-startTime)/1_000_000_000);
 
     }
 

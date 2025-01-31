@@ -14,7 +14,11 @@ public class Travel_AStar extends BaseSearch<String, String> {
 
     public static void main(String[] args) {
         Travel_AStar t = new Travel_AStar("RomaniaMap.txt", "RomaniaMapEstimates.txt");
+        double startTime = System.nanoTime();
         t.search();
+        double endTime = System.nanoTime();
+
+        System.out.printf("-------------------------\nTime taken: %.3f secs\n-------------------------", (endTime-startTime)/1_000_000_000);
     }
 
     public static class CalculateHeuristic implements Comparator<Node<String, String>> {

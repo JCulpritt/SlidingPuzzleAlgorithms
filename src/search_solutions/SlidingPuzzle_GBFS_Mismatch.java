@@ -15,8 +15,14 @@ public class SlidingPuzzle_GBFS_Mismatch extends BaseSearch<ArrayList<Integer>, 
 
     public static void main(String[] args) {
         SlidingPuzzle_GBFS_Mismatch t = new SlidingPuzzle_GBFS_Mismatch();
+        double startTime = System.nanoTime();
         t.search();
+        double endTime = System.nanoTime();
+
+        System.out.printf("-------------------------\nTime taken: %.3f secs\n-------------------------", (endTime-startTime)/1_000_000_000);
     }
+
+    @SuppressWarnings("ClassCanBeRecord")
 
     public static class CalculateHeuristic implements Comparator<Node<ArrayList<Integer>, String>> {
         public final SlidingPuzzle problem;

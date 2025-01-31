@@ -15,7 +15,11 @@ public class Travel_UCS extends BaseSearch<String, String> {
 
     public static void main(String[] args) {
         Travel_UCS t = new Travel_UCS("RomaniaMap.txt");
+        double startTime = System.nanoTime();
         t.search();
+        double endTime = System.nanoTime();
+
+        System.out.printf("-------------------------\nTime taken: %.3f secs\n-------------------------", (endTime-startTime)/1_000_000_000);
     }
 
     public static class ComparePathCost implements Comparator<Node<String, String>> {
