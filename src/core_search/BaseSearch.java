@@ -63,7 +63,7 @@ public class BaseSearch<S,A> {
         while(!path.isEmpty()){
             p.printState(path.pop());
             if(!path.isEmpty()) {
-                System.out.println("\n  ↓\n");
+                System.out.println("\n\t   ↓\n");
             }
         }
         System.out.println("\nPath cost: "+pathCost);

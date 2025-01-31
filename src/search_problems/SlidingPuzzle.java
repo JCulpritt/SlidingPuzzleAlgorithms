@@ -90,14 +90,14 @@ public class SlidingPuzzle implements Problem<ArrayList<Integer>, String> {
     }
 
 
-    /*public ArrayList<Integer> initialState() {
-        return new ArrayList<>(Arrays.asList(7, 2, 4, 5, 0, 6, 8, 3, 1));
-
-    }
-
-    public ArrayList<Integer> goalState() {
-        return new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8));
-    }*/
+//    public ArrayList<Integer> initialState() {
+//        return new ArrayList<>(Arrays.asList(7, 2, 4, 5, 0, 6, 8, 3, 1));
+//
+//    }
+//
+//    public ArrayList<Integer> goalState() {
+//        return new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8));
+//    }
 
     public ArrayList<Integer> initialState() {
         return new ArrayList<>(Arrays.asList(12, 1, 2, 15, 11, 6, 5, 8, 7, 10, 9, 4, 0, 13, 14, 3));
@@ -125,19 +125,23 @@ public class SlidingPuzzle implements Problem<ArrayList<Integer>, String> {
 
     public void printState(ArrayList<Integer> state) {
         int dimensions = (int) Math.sqrt(state.size());
-        for(int i = 0; i < state.size(); i++) {
-            if(state.get(i) == 0) {
-                System.out.printf("%3s", "");
-            }
-            else {
-                System.out.printf("%4d", state.get(i));
-            }
-            if((i + 1) % dimensions == 0) {
-                System.out.print("\n");
+        for (int i = 0; i < state.size(); i++) {
+            if (state.get(i) == 0) {
+                System.out.printf("%-3s", " "); // Print blank space for 0
+            } else {
+                System.out.printf("%-3d", state.get(i)); // Print the number with 3-character width
             }
 
+            // Print a separator (|) unless it's the last element in the row
+            if ((i + 1) % dimensions != 0) {
+                System.out.print("| ");
+            }
+
+            // Print a new line after the last element in each row
+            if ((i + 1) % dimensions == 0) {
+                System.out.println();
+            }
         }
-
     }
 
 
